@@ -1,5 +1,5 @@
 name:                panic
-version:             0.2.0.0
+version:             0.3.0.0
 synopsis:            A convenient way to panic.
 description:         A convenient way to panic.
 license:             ISC

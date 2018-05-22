@@ -1,7 +1,13 @@
 {-# Language Trustworthy #-}
 {-# Language ImplicitParams #-}
 {-# Language TemplateHaskell #-}
-module Panic (HasCallStack, panic, PanicComponent(..), useGitRevision) where
+module Panic
+  ( Panic(..)
+  , PanicComponent(..)
+  , useGitRevision
+  , HasCallStack
+  , panic
+  ) where
 
 import Development.GitRev
 import Language.Haskell.TH
@@ -11,7 +17,12 @@ import Control.Exception(Exception, throw)
 import Data.Maybe(fromMaybe,listToMaybe)
 import GHC.Stack
 
-panic :: (PanicComponent a, HasCallStack) => a -> String -> [String] -> b
+-- | Throw an exception for the given component.
+panic :: (PanicComponent a, HasCallStack) =>
+  a        {- ^ Component identification -} ->
+  String   {- ^ Location of problem -} ->
+  [String] {- ^ Problem description (lines) -} ->
+  b
 panic comp loc msg =
   throw Panic { panicComponent = comp
               , panicLoc       = loc
@@ -19,12 +30,14 @@ panic comp loc msg =
               , panicStack     = freezeCallStack ?callStack
               }
 
+-- | The exception thrown when panicing.
 data Panic a = Panic { panicComponent :: a
                      , panicLoc       :: String
                      , panicMsg       :: [String]
                      , panicStack     :: CallStack
                      }
 
+-- | Description of a component.
 class Typeable a => PanicComponent a where
   panicComponentName     :: a -> String
   -- | ^ Name of the panicing component.
