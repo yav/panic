@@ -58,7 +58,7 @@ useGitRevision = [| \_ -> ($gitHash, $gitBranch ++ $dirty) |]
   where dirty = [| if $gitDirty then " (uncommited files present)" else "" |]
 
 
-instance (Typeable a, PanicComponent a) => Show (Panic a) where
+instance (PanicComponent a) => Show (Panic a) where
   show p = unlines $
     [ "You have encountered a bug in " ++
         panicComponentName comp ++ "'s implementation."
