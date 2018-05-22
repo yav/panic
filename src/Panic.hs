@@ -40,13 +40,13 @@ data Panic a = Panic { panicComponent :: a
 -- | Description of a component.
 class Typeable a => PanicComponent a where
   panicComponentName     :: a -> String
-  -- | ^ Name of the panicing component.
+  -- ^ Name of the panicing component.
 
   panicComponentIssues   :: a -> String
-  -- | ^ Issue tracker for the panicking component.
+  -- ^ Issue tracker for the panicking component.
 
   panicComponentRevision :: a -> (String,String)
-  -- | ^ Information about the component's revision.
+  -- ^ Information about the component's revision.
   -- (commit hash, branch info)
 
 -- | An expression of type @a -> (String,String)@.
