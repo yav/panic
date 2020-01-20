@@ -30,7 +30,7 @@ panic comp loc msg =
               , panicStack     = freezeCallStack ?callStack
               }
 
--- | The exception thrown when panicing.
+-- | The exception thrown when panicking.
 data Panic a = Panic { panicComponent :: a
                      , panicLoc       :: String
                      , panicMsg       :: [String]
@@ -40,7 +40,7 @@ data Panic a = Panic { panicComponent :: a
 -- | Description of a component.
 class Typeable a => PanicComponent a where
   panicComponentName     :: a -> String
-  -- ^ Name of the panicing component.
+  -- ^ Name of the panicking component.
 
   panicComponentIssues   :: a -> String
   -- ^ Issue tracker for the panicking component.
